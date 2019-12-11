@@ -2,135 +2,158 @@ package log
 
 import (
 	"context"
+	"io"
 	"time"
 
 	"github.com/sirupsen/logrus"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
+func SetFormatter(formatter Formatter) {
+	std.SetFormatter(formatter)
+}
+
+func SetLevel(level Level) {
+	std.SetLevel(logrus.Level(level))
+}
+
+func SetOutput(output io.Writer) {
+	std.SetOutput(output)
+}
+func SetOutputFile(filename string, maxSizeMB, maxBackups, maxDays int, compress bool) {
+	std.SetOutput(&lumberjack.Logger{
+		Filename:   filename,
+		MaxSize:    maxSizeMB, // megabytes
+		MaxBackups: maxBackups,
+		MaxAge:     maxDays,  //days
+		Compress:   compress, // disabled by default
+	})
+}
+
 func AddHook(hook Hook) {
-	logrus.AddHook(hook)
+	std.AddHook(hook)
 }
 
 func WithContext(ctx context.Context) *logrus.Entry {
-	return logrus.WithContext(ctx)
+	return std.WithContext(ctx)
 }
 
 func WithField(key string, value interface{}) *logrus.Entry {
-	return logrus.WithField(key, value)
+	return std.WithField(key, value)
 }
 
 func WithFields(fields map[string]interface{}) *logrus.Entry {
-	return logrus.WithFields(fields)
+	return std.WithFields(fields)
 }
 
 func WithTime(t time.Time) *logrus.Entry {
-	return logrus.WithTime(t)
+	return std.WithTime(t)
 }
 
 func Trace(args ...interface{}) {
-	logrus.Trace(args...)
+	std.Trace(args...)
 }
 
 func Debug(args ...interface{}) {
-	logrus.Debug(args...)
+	std.Debug(args...)
 }
 
 func Print(args ...interface{}) {
-	logrus.Print(args...)
+	std.Print(args...)
 }
 
 func Info(args ...interface{}) {
-	logrus.Info(args...)
+	std.Info(args...)
 }
 
 func Warn(args ...interface{}) {
-	logrus.Warn(args...)
+	std.Warn(args...)
 }
 
 func Warning(args ...interface{}) {
-	logrus.Warning(args...)
+	std.Warning(args...)
 }
 
 func Error(args ...interface{}) {
-	logrus.Error(args...)
+	std.Error(args...)
 }
 
 func Panic(args ...interface{}) {
-	logrus.Panic(args...)
+	std.Panic(args...)
 }
 
 func Fatal(args ...interface{}) {
-	logrus.Fatal(args...)
+	std.Fatal(args...)
 }
 
 func Tracef(format string, args ...interface{}) {
-	logrus.Tracef(format, args...)
+	std.Tracef(format, args...)
 }
 
 func Debugf(format string, args ...interface{}) {
-	logrus.Debugf(format, args...)
+	std.Debugf(format, args...)
 }
 
 func Printf(format string, args ...interface{}) {
-	logrus.Printf(format, args...)
+	std.Printf(format, args...)
 }
 
 func Infof(format string, args ...interface{}) {
-	logrus.Infof(format, args...)
+	std.Infof(format, args...)
 }
 
 func Warnf(format string, args ...interface{}) {
-	logrus.Warnf(format, args...)
+	std.Warnf(format, args...)
 }
 
 func Warningf(format string, args ...interface{}) {
-	logrus.Warningf(format, args...)
+	std.Warningf(format, args...)
 }
 
 func Errorf(format string, args ...interface{}) {
-	logrus.Errorf(format, args...)
+	std.Errorf(format, args...)
 }
 
 func Panicf(format string, args ...interface{}) {
-	logrus.Panicf(format, args...)
+	std.Panicf(format, args...)
 }
 
 func Fatalf(format string, args ...interface{}) {
-	logrus.Fatalf(format, args...)
+	std.Fatalf(format, args...)
 }
 
 func Traceln(args ...interface{}) {
-	logrus.Traceln(args...)
+	std.Traceln(args...)
 }
 
 func Debugln(args ...interface{}) {
-	logrus.Debugln(args...)
+	std.Debugln(args...)
 }
 
 func Println(args ...interface{}) {
-	logrus.Println(args...)
+	std.Println(args...)
 }
 
 func Infoln(args ...interface{}) {
-	logrus.Infoln(args...)
+	std.Infoln(args...)
 }
 
 func Warnln(args ...interface{}) {
-	logrus.Warnln(args...)
+	std.Warnln(args...)
 }
 
 func Warningln(args ...interface{}) {
-	logrus.Warningln(args...)
+	std.Warningln(args...)
 }
 
 func Errorln(args ...interface{}) {
-	logrus.Errorln(args...)
+	std.Errorln(args...)
 }
 
 func Panicln(args ...interface{}) {
-	logrus.Panicln(args...)
+	std.Panicln(args...)
 }
 
 func Fatalln(args ...interface{}) {
-	logrus.Fatalln(args...)
+	std.Fatalln(args...)
 }

@@ -6,8 +6,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSetup(t *testing.T) {
-	err := Setup(WithOutputFile("test.log", 10, 10, 7, true))
+func TestNew(t *testing.T) {
+	l := New(WithOutputFile("test.log", 10, 10, 7, true))
+	assert.NotNil(t, l)
+	l.Println("test")
+}
+
+func TestSTD(t *testing.T) {
+	SetOutputFile("test1.log", 10, 10, 7, true)
 	Println("test")
-	assert.NoError(t, err)
 }

@@ -6,13 +6,19 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var ()
+var (
+	std = New()
+)
 
 const (
 	defaultLevel = DebugLevel
 )
 
-func Setup(opts ...Option) error {
+type Logger struct {
+	*logrus.Logger
+}
+
+func New(opts ...Option) *Logger {
 
 	options := options{
 		formatter: &logrus.JSONFormatter{},
@@ -23,13 +29,14 @@ func Setup(opts ...Option) error {
 	for _, o := range opts {
 		o.apply(&options)
 	}
-
+	l := logrus.New()
 	if options.formatter != nil {
-		logrus.SetFormatter(options.formatter)
+		l.SetFormatter(options.formatter)
 	}
 
-	logrus.SetOutput(options.out)
-	logrus.SetLevel(logrus.Level(options.level))
-
-	return nil
+	l.SetOutput(options.out)
+	l.SetLevel(logrus.Level(options.level))
+	return &Logger{
+		Logger: l,
+	}
 }
