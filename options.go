@@ -10,7 +10,6 @@ type options struct {
 	level     uint32
 	out       io.Writer
 	formatter Formatter
-	hooks     []Hook
 }
 
 type Option interface {
@@ -50,11 +49,5 @@ func WithFormatter(formatter Formatter) Option {
 func WithLevel(level uint32) Option {
 	return optionFunc(func(o *options) {
 		o.level = level
-	})
-}
-
-func WithHooks(hook Hook) Option {
-	return optionFunc(func(o *options) {
-		o.hooks = append(o.hooks, hook)
 	})
 }

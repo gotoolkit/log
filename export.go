@@ -1,21 +1,10 @@
 package log
 
 import (
-	"context"
 	"io"
-	"time"
 
-	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
-
-func SetFormatter(formatter Formatter) {
-	std.SetFormatter(formatter)
-}
-
-func SetLevel(level Level) {
-	std.SetLevel(logrus.Level(level))
-}
 
 func SetOutput(output io.Writer) {
 	std.SetOutput(output)
@@ -28,26 +17,6 @@ func SetOutputFile(filename string, maxSizeMB, maxBackups, maxDays int, compress
 		MaxAge:     maxDays,  //days
 		Compress:   compress, // disabled by default
 	})
-}
-
-func AddHook(hook Hook) {
-	std.AddHook(hook)
-}
-
-func WithContext(ctx context.Context) *logrus.Entry {
-	return std.WithContext(ctx)
-}
-
-func WithField(key string, value interface{}) *logrus.Entry {
-	return std.WithField(key, value)
-}
-
-func WithFields(fields map[string]interface{}) *logrus.Entry {
-	return std.WithFields(fields)
-}
-
-func WithTime(t time.Time) *logrus.Entry {
-	return std.WithTime(t)
 }
 
 func Trace(args ...interface{}) {

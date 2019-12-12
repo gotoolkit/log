@@ -1,42 +1,38 @@
 package log
 
-import (
-	"os"
+import "io"
 
-	"github.com/sirupsen/logrus"
-)
-
-var (
-	std = New()
-)
-
-const (
-	defaultLevel = DebugLevel
-)
-
-type Logger struct {
-	*logrus.Logger
+type ILogger interface {
+	StdLogger
+	SetOutput(io.Writer)
+	Trace(args ...interface{})
+	Tracef(format string, args ...interface{})
+	Traceln(args ...interface{})
+	Debug(args ...interface{})
+	Debugf(format string, args ...interface{})
+	Debugln(args ...interface{})
+	Info(args ...interface{})
+	Infof(format string, args ...interface{})
+	Infoln(args ...interface{})
+	Warn(args ...interface{})
+	Warnf(format string, args ...interface{})
+	Warnln(args ...interface{})
+	Warning(args ...interface{})
+	Warningf(format string, args ...interface{})
+	Warningln(args ...interface{})
+	Error(args ...interface{})
+	Errorf(format string, args ...interface{})
+	Errorln(args ...interface{})
 }
 
-func New(opts ...Option) *Logger {
-
-	options := options{
-		formatter: &logrus.JSONFormatter{},
-		level:     defaultLevel,
-		out:       os.Stderr,
-	}
-
-	for _, o := range opts {
-		o.apply(&options)
-	}
-	l := logrus.New()
-	if options.formatter != nil {
-		l.SetFormatter(options.formatter)
-	}
-
-	l.SetOutput(options.out)
-	l.SetLevel(logrus.Level(options.level))
-	return &Logger{
-		Logger: l,
-	}
+type StdLogger interface {
+	Print(args ...interface{})
+	Printf(format string, args ...interface{})
+	Println(args ...interface{})
+	Fatal(args ...interface{})
+	Fatalf(format string, args ...interface{})
+	Fatalln(args ...interface{})
+	Panic(args ...interface{})
+	Panicf(format string, args ...interface{})
+	Panicln(args ...interface{})
 }
