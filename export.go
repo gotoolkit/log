@@ -3,12 +3,22 @@ package log
 import (
 	"io"
 
+	"github.com/sirupsen/logrus"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
+
+func SetLevel(level Level) {
+	std.SetLevel(logrus.Level(level))
+}
+
+func SetFormatter(formatter Formatter) {
+	std.SetFormatter(formatter)
+}
 
 func SetOutput(output io.Writer) {
 	std.SetOutput(output)
 }
+
 func SetOutputFile(filename string, maxSizeMB, maxBackups, maxDays int, compress bool) {
 	std.SetOutput(&lumberjack.Logger{
 		Filename:   filename,

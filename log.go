@@ -1,10 +1,7 @@
 package log
 
-import "io"
-
 type ILogger interface {
 	StdLogger
-	SetOutput(io.Writer)
 	Trace(args ...interface{})
 	Tracef(format string, args ...interface{})
 	Traceln(args ...interface{})

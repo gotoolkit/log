@@ -15,7 +15,7 @@ const (
 )
 
 type Logger struct {
-	ILogger
+	*logrus.Logger
 }
 
 func New(opts ...Option) *Logger {
@@ -33,6 +33,6 @@ func New(opts ...Option) *Logger {
 	l.SetLevel(logrus.Level(options.level))
 	l.SetOutput(options.out)
 	return &Logger{
-		ILogger: l,
+		Logger: l,
 	}
 }
