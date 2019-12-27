@@ -7,7 +7,7 @@ import (
 )
 
 type options struct {
-	level     uint32
+	level     Level
 	out       io.Writer
 	formatter Formatter
 }
@@ -46,7 +46,7 @@ func WithFormatter(formatter Formatter) Option {
 	})
 }
 
-func WithLevel(level uint32) Option {
+func WithLevel(level Level) Option {
 	return optionFunc(func(o *options) {
 		o.level = level
 	})

@@ -3,7 +3,7 @@ package log
 type Level uint32
 
 const (
-	PanicLevel uint32 = iota
+	PanicLevel Level = iota
 	FatalLevel
 	ErrorLevel
 	WarnLevel
